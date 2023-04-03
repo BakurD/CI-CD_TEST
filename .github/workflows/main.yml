@@ -34,9 +34,3 @@ jobs:
           host: ${{ env.EC2_INSTANCE_IP }}
           source: "."
           destination: "/home/ubuntu/my-app"
-          
-      - name: Install dependencies
-        run: ssh ${{ env.SSH_USERNAME }}@${{ env.EC2_INSTANCE_IP }} "cd /home/ubuntu/my-app && npm install"
-        
-      - name: Start the app
-        run: ssh ${{ env.SSH_USERNAME }}@${{ env.EC2_INSTANCE_IP }} "cd /home/ubuntu/my-app && npm start"
