@@ -1,7 +1,10 @@
 name: CI-CD pipeline to AWS EC2
 env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SSH_USERNAME: "ec2-user"
   S3_BUCKET_NAME: "webbakurdeploy"
   AWS_REGION: "us-east-1"
+  EC2_INSTANCE_IP: "18.212.5.104"
   
 on:
   push:
@@ -22,3 +25,18 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: Copy file to s3
         run: aws s3 cp index.html s3://${{ env.S3_BUCKET_NAME }}
+        
+      - name: Copy code to EC2 instance
+        uses: easingthemes/ssh-deploy@v2.1.5
+        with:
+          ssh-private-key: ${{ env.SSH_PRIVATE_KEY }}
+          ssh-username: ${{ env.SSH_USERNAME }}
+          host: ${{ env.EC2_INSTANCE_IP }}
+          source: "."
+          destination: "/home/ubuntu/my-app"
+          
+      - name: Install dependencies
+        run: ssh ${{ env.SSH_USERNAME }}@${{ env.EC2_INSTANCE_IP }} "cd /home/ubuntu/my-app && npm install"
+        
+      - name: Start the app
+        run: ssh ${{ env.SSH_USERNAME }}@${{ env.EC2_INSTANCE_IP }} "cd /home/ubuntu/my-app && npm start"
