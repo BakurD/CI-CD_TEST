@@ -1,10 +1,9 @@
 name: CI-CD pipeline to AWS EC2
 env:
-  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-  SSH_USERNAME: "ec2-user"
+  REMOTE_USER: "ec2-user"
   S3_BUCKET_NAME: "webbakurdeploy"
   AWS_REGION: "us-east-1"
-  EC2_INSTANCE_IP: "18.212.5.104"
+  REMOTE_HOST: "18.212.5.104"
   
 on:
   push:
@@ -29,8 +28,8 @@ jobs:
       - name: Copy code to EC2 instance
         uses: easingthemes/ssh-deploy@v2.1.5
         with:
-          ssh-private-key: ${{ env.SSH_PRIVATE_KEY }}
-          ssh-username: ${{ env.SSH_USERNAME }}
-          host: ${{ env.EC2_INSTANCE_IP }}
-          source: "."
-          destination: "/home/ubuntu/my-app"
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          SOURCE: "index.html"
+          TARGET: "/var/www/html/"
