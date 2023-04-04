@@ -1,4 +1,4 @@
-name: CI-CD pipeline to AWS EC2 #Some changes
+name: CI-CD_pipeline_to_AWS_EC2 #Some changes
 env:
   REMOTE_USER: "ec2-user"
   S3_BUCKET_NAME: "webbakurdeploy"
