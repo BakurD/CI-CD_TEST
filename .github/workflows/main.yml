@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git clone our repo
-        uses: actions/checkout@1
+        uses: actions/checkout@v1
       - name: SSH connect to our web server and copy index.html from s3
         run: | 
           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}
