@@ -10,7 +10,7 @@ on:
     branches: 
     - main
 jobs:
-  ci_pipeline:
+  ci_pipeline: #
     runs-on: ubuntu-latest
     steps:
       - name: Git clone our repo
