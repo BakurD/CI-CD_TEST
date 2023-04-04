@@ -3,7 +3,7 @@ env:
   REMOTE_USER: "ec2-user"
   S3_BUCKET_NAME: "webbakurdeploy"
   AWS_REGION: "us-east-1"
-  REMOTE_HOST: "18.212.5.104"
+  REMOTE_HOST: "52.87.234.39"
   
 on:
   push:
